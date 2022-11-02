@@ -18,7 +18,8 @@ class Reviews_Analysis:
         '''
         if headers == {}:  # 指定默认请求头
             self.headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
+            'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
             }
         else:
             self.headers = headers
@@ -33,7 +34,6 @@ class Reviews_Analysis:
         try:
             url_list = []  # 电影评论链接列表
             interger_count = reviews_count//25
-            left_count = reviews_count - interger_count * 25
             for i in range(interger_count + 1):
                 url = "https://movie.douban.com/top250?start=" + str(i * 25) + "&filter="
                 # 发送get请求
@@ -49,8 +49,7 @@ class Reviews_Analysis:
                     data = parse_html.xpath("//div[@class='hd']/a/@href")
                     url_list += data
 
-            if left_count:
-                url_list = url_list[:reviews_count+left_count-1]
+            url_list = url_list[:reviews_count]
 
             if print_mess:
                 print("已获取到%d条电影链接" % url_list.__len__())
@@ -68,7 +67,6 @@ class Reviews_Analysis:
         :param print_mess: Whether to print debugging information. The default value is False
         :return: Returns the number of comments retrieved
         '''
-
         url += 'reviews'  # 影评链接
         try:
             r = requests.get(url, headers=self.headers)
