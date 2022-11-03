@@ -19,21 +19,23 @@ class Reviews_Analysis:
         if headers == {}:  # 指定默认请求头
             self.headers = {
             'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
+            'Accept':
+                'text / html, application / xhtml + xml, application / xml;q = 0.9, image / webp, image / apng, * / *;q = 0.8, application / signed - exchange;v = b3;q = 0.9'
             }
         else:
             self.headers = headers
 
-    def get_movie_link(self, reviews_count=100, print_mess=True):
+    def get_movie_link(self, movie_count=100, print_mess=True):
         '''
         Get links to top 100 rated movie reviews
-        :param reviews_count: The number of movie reviews crawled. The default is 100
+        :param movie_count: The number of movies crawled. The default is 100
         :param print_mess: Whether to print debugging information. The default value is True
         :return: Returns a list of links to movie reviews
         '''
         try:
             url_list = []  # 电影评论链接列表
-            interger_count = reviews_count//25
+            interger_count = movie_count // 25
             for i in range(interger_count + 1):
                 url = "https://movie.douban.com/top250?start=" + str(i * 25) + "&filter="
                 # 发送get请求
@@ -49,7 +51,7 @@ class Reviews_Analysis:
                     data = parse_html.xpath("//div[@class='hd']/a/@href")
                     url_list += data
 
-            url_list = url_list[:reviews_count]
+            url_list = url_list[:movie_count]
 
             if print_mess:
                 print("已获取到%d条电影链接" % url_list.__len__())
@@ -80,7 +82,7 @@ class Reviews_Analysis:
             parse_html = etree.HTML(r.text)
             movie_name = parse_html.xpath("//div[@id='content']/h1/text()")[0]
             commit_id = parse_html.xpath("//div[@data-cid]/@data-cid")
-            commits_len = 0
+            commits_len = 0  # 评论数量
             with open("commits.txt", 'a+', encoding="utf-8") as f:
                 for idx in commit_id:
                     commit_url = "https://movie.douban.com/j/review/" + str(idx) + "/full"

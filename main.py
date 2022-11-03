@@ -9,10 +9,10 @@ import stylecloud
 from Movie_Analysis import Reviews_Analysis
 
 if __name__ == '__main__':
-    # 创建词频统计对象
+    # 创建电影分析对象
     Movie_Analysis = Reviews_Analysis()
     # 获取top100电影评论链接的列表
-    url_list = Movie_Analysis.get_movie_link(reviews_count=105)
+    url_list = Movie_Analysis.get_movie_link(movie_count=100)
 
     # 统计评论数量
     size_commit = 0
