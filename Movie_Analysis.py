@@ -14,7 +14,7 @@ class Reviews_Analysis:
     def __init__(self, headers={}):
         '''
         procedure SetUp
-        :param headers: A request header is passed in. By default, the native header is used
+        :param headers: A request header is passed in
         '''
         if headers == {}:  # 指定默认请求头
             self.headers = {
@@ -29,8 +29,8 @@ class Reviews_Analysis:
     def get_movie_link(self, movie_count=100, print_mess=True):
         '''
         Get links to top 100 rated movie reviews
-        :param movie_count: The number of movies crawled. The default is 100
-        :param print_mess: Whether to print debugging information. The default value is True
+        :param movie_count: The number of movies crawled.
+        :param print_mess: Whether to print debugging information
         :return: Returns a list of links to movie reviews
         '''
         try:
@@ -66,7 +66,7 @@ class Reviews_Analysis:
         '''
         Get a movie review and save it to a file
         :param url: You need to pass in a link to the movie review, in string format
-        :param print_mess: Whether to print debugging information. The default value is False
+        :param print_mess: Whether to print debugging information
         :return: Returns the number of comments retrieved
         '''
         url += 'reviews'  # 影评链接
@@ -139,8 +139,8 @@ class Reviews_Analysis:
     def word_fre_analysis(self, file_dir, print_mess=False, use_stopwords=True):
         '''
         Analyze the most frequent words in the dictionary and order them from most to least frequent
-        :param print_mess: Whether to print debugging information. The default value is False
-        :param use_stopwords: Whether to use the stop word. The default is True
+        :param print_mess: Whether to print debugging information
+        :param use_stopwords: Whether to use the stop word
         :param file_dir: Comment file path, default in the project directory
         :return: Returns the high frequency dictionary and the dictionary length
         '''
